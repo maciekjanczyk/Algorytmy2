@@ -25,14 +25,11 @@ namespace Problem8Hetmanow
 
         private int[] Probuj(int i, ref bool q)
         {            
-            int j = -1;
-
-            while ((!q) && (j < n - 1))
-            {
-                j += 1;
+            for (int j = 0; j < n && (!q); j++)
+            {               
                 q = false;
 
-                if (!wWierszu[j] && !naPrzekatnej1[i + j] && !naPrzekatnej2[System.Math.Abs(i - j)])
+                if (!wWierszu[j] && !naPrzekatnej1[i + j] && !naPrzekatnej2[Math.Abs(i - j)])
                 {
                     pozycjaKolumna[i] = j;
                     wWierszu[j] = true;
@@ -47,7 +44,7 @@ namespace Problem8Hetmanow
                         {
                             wWierszu[j] = false;
                             naPrzekatnej1[i + j] = false;
-                            naPrzekatnej2[System.Math.Abs(i - j)] = false;
+                            naPrzekatnej2[Math.Abs(i - j)] = false;
                         }
                     }
                     else
@@ -63,7 +60,9 @@ namespace Problem8Hetmanow
         public int[] RozwiazProblem()
         {
             bool q = false;
-            return Probuj(0, ref q);
+            int[] ret = Probuj(0, ref q);
+
+            return ret;
         }
     }
 }
