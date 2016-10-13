@@ -55,7 +55,7 @@ namespace ProblemSkoczka
 
         private bool CzyRuchDopuszczalny(int x, int y)
         {
-            if (x < 0 || y < 0 || x > Szachownica.Length || y > Szachownica.Length)
+            if (x < 0 || y < 0 || x > Szachownica.GetLength(0) - 1 || y > Szachownica.GetLength(0) - 1)
             {
                 return false;
             }
@@ -78,8 +78,9 @@ namespace ProblemSkoczka
         {
             Stack<int[]> mozliweRuchy = ListaMozliwychRuchow(x, y);
             bool q = false;
+            int odrzucone = 0;
 
-            while ((!q) && mozliweRuchy.Count > 0)
+            while ((!q) && mozliweRuchy.Count > odrzucone)
             {
                 int[] wspolrzedneRuchu = mozliweRuchy.Pop();
 
@@ -88,13 +89,28 @@ namespace ProblemSkoczka
                     Szachownica[x, y] = i;
                     ZapelnionePola += 1;
 
-                    if (!Probuj(i + 1, wspolrzedneRuchu[0], wspolrzedneRuchu[1]))
+                    if (i < Szachownica.Length)
                     {
-                        Szachownica[x, y] = 0;
-                        ZapelnionePola -= 1;
+                        if (!Probuj(i + 1, wspolrzedneRuchu[0], wspolrzedneRuchu[1]))
+                        {
+                            Szachownica[x, y] = 0;
+                            ZapelnionePola -= 1;
+                        }
+                    }
+                    else
+                    {
                         q = true;
                     }
                 }
+                else
+                {
+                    odrzucone += 1;
+                }
+            }
+
+            if (mozliweRuchy.Count == odrzucone)
+            {
+                q = true;
             }
 
             return q;
