@@ -104,7 +104,50 @@ namespace ProblemSkoczka
             return q;
         }
 
-        public int[,] RozwiazProblem(int[] start)
+        private bool ProbujN(int i, int x, int y, ref bool q)
+        {
+            Stack<int[]> mozliweRuchy = ListaMozliwychRuchow(x, y);
+
+            do
+            {
+                int[] wspolrzedneRuchu = mozliweRuchy.Pop();
+
+                if (CzyRuchDopuszczalny(wspolrzedneRuchu))
+                {
+                    Szachownica[wspolrzedneRuchu[0], wspolrzedneRuchu[1]] = i;
+
+                    if (i < Szachownica.Length)
+                    {
+                        Probuj(i + 1, wspolrzedneRuchu[0], wspolrzedneRuchu[1], ref q);
+
+                        if (!q)
+                        {
+                            Szachownica[wspolrzedneRuchu[0], wspolrzedneRuchu[1]] = 0;
+                        }
+                    }
+                    else
+                    {
+                        int n = Szachownica.GetLength(0);
+                        Console.WriteLine();
+
+                        for (int ii = 0; ii < n; ii++)
+                        {
+                            for (int jj = 0; jj < n; jj++)
+                            {
+                                Console.Write("{0,2} ", Szachownica[ii, jj]);
+                            }
+
+                            Console.WriteLine();
+                        }
+                    }
+                }
+            }
+            while (mozliweRuchy.Count > 0);
+
+            return q;
+        }
+
+        public int[,] RozwiazProblem(int[] start, bool kilkaRozw = false)
         {
             if (Szachownica[start[0], start[1]] == 0)
             {
@@ -113,14 +156,21 @@ namespace ProblemSkoczka
 
             bool q = false;
 
-            Probuj(2, start[0], start[1], ref q);
+            if (!kilkaRozw)
+            {
+                Probuj(2, start[0], start[1], ref q);
+            }
+            else
+            {
+                ProbujN(2, start[0], start[1], ref q);
+            }
 
             return Szachownica;
         }
 
-        public int[,] RozwiazProblem(int startx, int starty)
+        public int[,] RozwiazProblem(int startx, int starty, bool kilkaRozw = false)
         {
-            return RozwiazProblem(new int[2] { startx, starty });
+            return RozwiazProblem(new int[2] { startx, starty }, kilkaRozw);
         }
     }
 }

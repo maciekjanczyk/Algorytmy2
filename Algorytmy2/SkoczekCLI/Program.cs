@@ -18,15 +18,20 @@ namespace SkoczekCLI
             string[] separated = Console.ReadLine().Split(',');
             int x = Convert.ToInt32(separated[0]);
             int y = Convert.ToInt32(separated[1]);
-            int [,] rozw = skoczek.RozwiazProblem(x, y);
-            for (int i = 0; i < n; i++)
+            Console.Write("Kilka rozwiazan? [t/y]: ");
+            bool kilkaRozw = Console.ReadLine().Equals("t") ? true : false;
+            int [,] rozw = skoczek.RozwiazProblem(x, y, kilkaRozw);
+            if (!kilkaRozw)
             {
-                for (int j = 0; j < n; j++)
+                for (int i = 0; i < n; i++)
                 {
-                    Console.Write("{0,2} ", rozw[i, j]);                    
-                }
+                    for (int j = 0; j < n; j++)
+                    {
+                        Console.Write("{0,2} ", rozw[i, j]);
+                    }
 
-                Console.WriteLine();
+                    Console.WriteLine();
+                }
             }
             Console.ReadKey();
         }
