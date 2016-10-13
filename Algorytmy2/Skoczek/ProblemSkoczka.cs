@@ -104,7 +104,7 @@ namespace ProblemSkoczka
             return q;
         }
 
-        private bool ProbujN(int i, int x, int y, ref bool q)
+        private bool ProbujN(int i, int x, int y, List<int[,]> bufor, int n_max, ref bool q)
         {
             Stack<int[]> mozliweRuchy = ListaMozliwychRuchow(x, y);
 
@@ -118,28 +118,20 @@ namespace ProblemSkoczka
 
                     if (i < Szachownica.Length)
                     {
-                        Probuj(i + 1, wspolrzedneRuchu[0], wspolrzedneRuchu[1], ref q);
-
-                        if (!q)
-                        {
-                            Szachownica[wspolrzedneRuchu[0], wspolrzedneRuchu[1]] = 0;
-                        }
+                        ProbujN(i + 1, wspolrzedneRuchu[0], wspolrzedneRuchu[1], bufor, n_max, ref q);                        
                     }
                     else
                     {
-                        int n = Szachownica.GetLength(0);
-                        Console.WriteLine();
-
-                        for (int ii = 0; ii < n; ii++)
+                        q = true;
+                        bufor.Add((int[,])Szachownica.Clone());               
+                        
+                        if (bufor.Count > n_max && n_max != -1)
                         {
-                            for (int jj = 0; jj < n; jj++)
-                            {
-                                Console.Write("{0,2} ", Szachownica[ii, jj]);
-                            }
-
-                            Console.WriteLine();
+                            return q;
                         }
                     }
+                    
+                    Szachownica[wspolrzedneRuchu[0], wspolrzedneRuchu[1]] = 0;
                 }
             }
             while (mozliweRuchy.Count > 0);
@@ -147,7 +139,7 @@ namespace ProblemSkoczka
             return q;
         }
 
-        public int[,] RozwiazProblem(int[] start, bool kilkaRozw = false)
+        public int[,] RozwiazProblem(int[] start)
         {
             if (Szachownica[start[0], start[1]] == 0)
             {
@@ -155,22 +147,35 @@ namespace ProblemSkoczka
             }
 
             bool q = false;
-
-            if (!kilkaRozw)
-            {
-                Probuj(2, start[0], start[1], ref q);
-            }
-            else
-            {
-                ProbujN(2, start[0], start[1], ref q);
-            }
+            
+            Probuj(2, start[0], start[1], ref q);            
 
             return Szachownica;
         }
 
-        public int[,] RozwiazProblem(int startx, int starty, bool kilkaRozw = false)
+        public int[,] RozwiazProblem(int startx, int starty)
         {
-            return RozwiazProblem(new int[2] { startx, starty }, kilkaRozw);
+            return RozwiazProblem(new int[2] { startx, starty });
+        }
+
+        public List<int[,]> RozwiazProblem(int[] start, int n_max = -1)
+        {
+            if (Szachownica[start[0], start[1]] == 0)
+            {
+                Szachownica[start[0], start[1]] = 1;
+            }
+
+            bool q = false;
+            List<int[,]> ret = new List<int[,]>();
+
+            ProbujN(2, start[0], start[1], ret, -1, ref q);
+
+            return ret;
+        }
+
+        public List<int[,]> RozwiazProblem(int startx, int starty, int n_max = -1)
+        {
+            return RozwiazProblem(new int[2] { startx, starty }, n_max);
         }
     }
 }
