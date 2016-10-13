@@ -14,7 +14,7 @@ namespace SkoczekCLI
             Console.Write("Podaj wymiar szachownicy: ");
             int n = Convert.ToInt32(Console.ReadLine());
             Skoczek skoczek = new Skoczek(n);
-            Console.Write("Podaj punkt startowy (indeksacja od 1, notacja z przecinkiem bez spacji): ");
+            Console.Write("Podaj punkt startowy (indeksacja od 0, notacja z przecinkiem bez spacji): ");
             string[] separated = Console.ReadLine().Split(',');
             int x = Convert.ToInt32(separated[0]);
             int y = Convert.ToInt32(separated[1]);

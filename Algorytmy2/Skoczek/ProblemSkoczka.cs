@@ -9,7 +9,6 @@ namespace ProblemSkoczka
     public class Skoczek
     {
         public int[,] Szachownica { get; private set; }
-        public int ZapelnionePola { get; private set; }        
 
         public Skoczek(int[,] szach)
         {
@@ -34,7 +33,6 @@ namespace ProblemSkoczka
         public void Init(int[,] szach)
         {
             Szachownica = szach;
-            ZapelnionePola = 0;
         }
 
         private Stack<int[]> ListaMozliwychRuchow(int x, int y)
@@ -74,27 +72,25 @@ namespace ProblemSkoczka
             return CzyRuchDopuszczalny(pkt[0], pkt[1]);
         }
         
-        private bool Probuj(int i, int x, int y)
+        private bool Probuj(int i, int x, int y, ref bool q)
         {
             Stack<int[]> mozliweRuchy = ListaMozliwychRuchow(x, y);
-            bool q = false;
-            int odrzucone = 0;
 
-            while ((!q) && mozliweRuchy.Count > odrzucone)
+            do
             {
                 int[] wspolrzedneRuchu = mozliweRuchy.Pop();
 
                 if (CzyRuchDopuszczalny(wspolrzedneRuchu))
                 {
-                    Szachownica[x, y] = i;
-                    ZapelnionePola += 1;
+                    Szachownica[wspolrzedneRuchu[0], wspolrzedneRuchu[1]] = i;
 
                     if (i < Szachownica.Length)
                     {
-                        if (!Probuj(i + 1, wspolrzedneRuchu[0], wspolrzedneRuchu[1]))
+                        Probuj(i + 1, wspolrzedneRuchu[0], wspolrzedneRuchu[1], ref q);
+
+                        if (!q)
                         {
-                            Szachownica[x, y] = 0;
-                            ZapelnionePola -= 1;
+                            Szachownica[wspolrzedneRuchu[0], wspolrzedneRuchu[1]] = 0;
                         }
                     }
                     else
@@ -102,23 +98,23 @@ namespace ProblemSkoczka
                         q = true;
                     }
                 }
-                else
-                {
-                    odrzucone += 1;
-                }
             }
-
-            if (mozliweRuchy.Count == odrzucone)
-            {
-                q = true;
-            }
+            while ((!q) && mozliweRuchy.Count > 0);
 
             return q;
         }
 
         public int[,] RozwiazProblem(int[] start)
         {
-            Probuj(1, start[0], start[1]);
+            if (Szachownica[start[0], start[1]] == 0)
+            {
+                Szachownica[start[0], start[1]] = 1;
+            }
+
+            bool q = false;
+
+            Probuj(2, start[0], start[1], ref q);
+
             return Szachownica;
         }
 
