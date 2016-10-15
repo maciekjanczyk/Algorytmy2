@@ -9,32 +9,34 @@ namespace Problem8Hetmanow
     public class Hetman8
     {
         private int[] pozycjaKolumna;
-        private bool[] wWierszu;
-        private bool[] naPrzekatnej1;
-        private bool[] naPrzekatnej2;
+        private bool[] brakWWierszu;
+        private bool[] brakNaPrzekatnej1;
+        private bool[] brakNaPrzekatnej2;
         private int n;
 
         public Hetman8(int n = 8)
         {
             this.n = n;
             pozycjaKolumna = new int[n];
-            wWierszu = new bool[n];
-            naPrzekatnej1 = new bool[2 * n - 1];
-            naPrzekatnej2 = new bool[2 * n - 1];
+            brakWWierszu = Enumerable.Repeat(true, n).ToArray();
+            brakNaPrzekatnej1 = Enumerable.Repeat(true, 2 * n - 1).ToArray();
+            brakNaPrzekatnej2 = Enumerable.Repeat(true, 2 * n - 1).ToArray();
         }
 
         private int[] Probuj(int i, ref bool q)
-        {            
+        {                        
             for (int j = 0; j < n && (!q); j++)
             {               
                 q = false;
+                int idx1 = i + j;
+                int idx2 = i - j + n - 1;
 
-                if (!wWierszu[j] && !naPrzekatnej1[i + j] && !naPrzekatnej2[Math.Abs(i - j)])
+                if (brakWWierszu[j] && brakNaPrzekatnej1[idx1] && brakNaPrzekatnej2[idx2])
                 {
                     pozycjaKolumna[i] = j;
-                    wWierszu[j] = true;
-                    naPrzekatnej1[i + j] = true;
-                    naPrzekatnej2[System.Math.Abs(i - j)] = true;
+                    brakWWierszu[j] = false;
+                    brakNaPrzekatnej1[idx1] = false;
+                    brakNaPrzekatnej2[idx2] = false;
 
                     if (i < n)
                     {
@@ -42,9 +44,9 @@ namespace Problem8Hetmanow
 
                         if (!q)
                         {
-                            wWierszu[j] = false;
-                            naPrzekatnej1[i + j] = false;
-                            naPrzekatnej2[Math.Abs(i - j)] = false;
+                            brakWWierszu[j] = true;
+                            brakNaPrzekatnej1[idx1] = true;
+                            brakNaPrzekatnej2[idx2] = true;
                         }
                     }
                     else
