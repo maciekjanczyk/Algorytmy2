@@ -59,12 +59,63 @@ namespace Problem8Hetmanow
             return pozycjaKolumna;
         }
 
+        private bool ProbujN(int i, int n_max, List<int[]> multiret, ref bool q)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                q = false;
+                int idx1 = i + j;
+                int idx2 = i - j + n - 1;
+
+                if (brakWWierszu[j] && brakNaPrzekatnej1[idx1] && brakNaPrzekatnej2[idx2])
+                {
+                    pozycjaKolumna[i] = j;
+                    brakWWierszu[j] = false;
+                    brakNaPrzekatnej1[idx1] = false;
+                    brakNaPrzekatnej2[idx2] = false;
+
+                    if (i < n - 1)
+                    {
+                        ProbujN(i + 1, n_max, multiret, ref q);
+
+                        if (!q)
+                        {
+                            brakWWierszu[j] = true;
+                            brakNaPrzekatnej1[idx1] = true;
+                            brakNaPrzekatnej2[idx2] = true;
+                        }
+                    }
+                    else
+                    {
+                        q = true;
+                        multiret.Add((int[])pozycjaKolumna.Clone());
+
+                        if (multiret.Count > n_max && n_max != -1)
+                        {
+                            return q;
+                        }
+                    }
+                }
+            }
+
+            return q;
+        }
+
         public int[] RozwiazProblem()
         {
             bool q = false;
             int[] ret = Probuj(0, ref q);
 
             return ret;
+        }
+
+        public List<int[]> RozwiazProblem(int n_max = -1)
+        {
+            List<int[]> multiret = new List<int[]>();
+            bool q = false;
+            ProbujN(0, n_max, multiret, ref q);
+
+            return multiret;
         }
     }
 }
