@@ -38,7 +38,7 @@ namespace Problem8Hetmanow
                     brakNaPrzekatnej1[idx1] = false;
                     brakNaPrzekatnej2[idx2] = false;
 
-                    if (i < n)
+                    if (i < n - 1)
                     {
                         Probuj(i + 1, ref q);
 
