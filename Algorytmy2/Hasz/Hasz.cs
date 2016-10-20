@@ -174,6 +174,20 @@ namespace HaszNaListach
                         }
 
                         break;
+
+                    case "help":
+                        {
+                            Console.Clear();
+                            Console.WriteLine("dodaj [el1] [el2] ...");
+                            Console.WriteLine("usun [el1] [el2] ...");
+                            Console.WriteLine("szukaj [el]");
+                            Console.WriteLine("help");
+                            Console.WriteLine("quit");
+                            Console.WriteLine("\nNacisnij klawisz...");
+                            Console.ReadKey();
+                        }
+
+                        break;
                 }
             }
             catch (Exception) { }

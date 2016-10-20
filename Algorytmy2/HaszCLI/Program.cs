@@ -24,11 +24,16 @@ namespace HaszCLI
             return ret;
         }
 
+        static float BezOgonka(float a, float b)
+        {
+            return a - (a % b);
+        }
+
         static void Main(string[] args)
         {
             Random rand = new Random();
-            List<float> dataset = FillDataset(10, () => { return Convert.ToSingle(rand.NextDouble()); });
-            Hasz<float> hasz = new Hasz<float>(20, FunkcjeHaszujace.DlaLiczbOd0Do1, 2);
+            List<float> dataset = FillDataset(20, () => { return BezOgonka(Convert.ToSingle(rand.NextDouble()), (float)0.001); });
+            Hasz<float> hasz = new Hasz<float>(40, FunkcjeHaszujace.DlaLiczbOd0Do1, 2);
 
             hasz.Wloz(dataset);                        
 
