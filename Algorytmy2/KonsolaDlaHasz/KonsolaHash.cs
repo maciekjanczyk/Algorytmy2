@@ -10,19 +10,19 @@ namespace KonsolaDlaHasz
 
     public static class KonsolaHash
     {
-        public static void TrybInteraktywny<T>(Hasz<T> hasz) where T : IConvertible
+        public static void TrybInteraktywny<T>(this Hasz<T> hasz) where T : IConvertible
         {
             string command = "";
             bool status = true;
 
             while (command != "quit")
             {
+                Console.Clear();
                 Console.WriteLine("{0}", hasz);
                 Console.WriteLine("Status ostatnie komendy: {0}, Ilosc danych: {1}", status, hasz.N);
                 Console.Write("cmd$ ");
                 command = Console.ReadLine();
                 status = WykonajKomende(hasz, command);
-                Console.Clear();
             }
         }
 

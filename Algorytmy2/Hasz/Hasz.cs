@@ -27,6 +27,17 @@ namespace HaszNaListach
         {
             return (int)(m * (a * Math.PI) % 1);
         }
+
+        public static int DlaNapisowConajmniej3(string a, int m)
+        {
+            float a0 = (float)a[0];
+            float a1 = (float)a[1];
+            float a2 = (float)a[2];          
+
+            int ret = (int)((a0 + a1 + a2) / (3 * 'z') * (m - 1));
+
+            return ret;
+        }
     }
 
     public class Hasz<T> where T : IConvertible
