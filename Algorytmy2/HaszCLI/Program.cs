@@ -69,6 +69,7 @@ namespace HaszCLI
             {
                 Console.Clear();
                 Console.Write("Ilosc danych: ");
+
                 try
                 {
                     ret = Convert.ToInt32(Console.ReadLine());

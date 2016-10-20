@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace HaszNaListach
 {
+    using StrukturyDanych;
+
     public static class FunkcjeHaszujace
     {
         public static int DlaLiczbOd0Do1(float a, int m)
@@ -46,7 +48,7 @@ namespace HaszNaListach
 
         public int M { get; private set; }
         public FunkcjaHasz F { get; private set; }
-        public List<T>[] Tab { get; private set; }
+        public Lista<T>[] Tab { get; private set; }
         public int StrFormat { get; set; }
         public int N { get; private set; }
 
@@ -74,7 +76,7 @@ namespace HaszNaListach
             M = m;
             F = f;
             N = 0;
-            Tab = new List<T>[M];
+            Tab = new Lista<T>[M];
             StrFormat = strformat;
         }
 
@@ -110,7 +112,7 @@ namespace HaszNaListach
             {
                 if (Tab[idx] == null)
                 {
-                    Tab[idx] = new List<T>();
+                    Tab[idx] = new Lista<T>();
                 }                
 
                 Tab[idx].Add(el);
@@ -168,8 +170,8 @@ namespace HaszNaListach
             N = 0;
             M = M * 2;
 
-            List<T>[] oldTab = Tab;
-            Tab = new List<T>[M];
+            Lista<T>[] oldTab = Tab;
+            Tab = new Lista<T>[M];
 
             for (int i = 0; i < M / 2; i++)
             {
@@ -188,8 +190,8 @@ namespace HaszNaListach
             N = 0;
             M = M / 2;
 
-            List<T>[] oldTab = Tab;
-            Tab = new List<T>[M];
+            Lista<T>[] oldTab = Tab;
+            Tab = new Lista<T>[M];
 
             for (int i = 0; i < M * 2; i++)
             {
