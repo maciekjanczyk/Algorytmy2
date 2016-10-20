@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace HaszCLI
 {
     using HaszNaListach;
+    using KonsolaDlaHasz;
 
     class Program
     {
@@ -32,23 +33,12 @@ namespace HaszCLI
         static void Main(string[] args)
         {
             Random rand = new Random();
-            List<float> dataset = FillDataset(20, () => { return BezOgonka(Convert.ToSingle(rand.NextDouble()), (float)0.001); });
-            Hasz<float> hasz = new Hasz<float>(40, FunkcjeHaszujace.DlaLiczbOd0Do1, 2);
+            List<float> dataset = FillDataset(5, () => { return BezOgonka(Convert.ToSingle(rand.NextDouble()), (float)0.001); });
+            Hasz<float> hasz = new Hasz<float>(dataset, FunkcjeHaszujace.DlaLiczbOd0Do1);
 
-            hasz.Wloz(dataset);                        
+            hasz.Wloz(dataset);
 
-            string command = "";
-            bool status = true;
-
-            while (command != "quit")
-            {
-                Console.WriteLine("{0}", hasz);
-                Console.WriteLine("Status ostatnie komendy: {0}", status);
-                Console.Write("cmd$ ");
-                command = Console.ReadLine();
-                status = hasz.ExecuteCMD(command);
-                Console.Clear();
-            }
+            KonsolaHash.TrybInteraktywny(hasz);            
         }
     }
 }

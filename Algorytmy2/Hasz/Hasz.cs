@@ -17,9 +17,19 @@ namespace HaszNaListach
         {
             return (int)(a * m);
         }
+
+        public static int DlaLiczbCalkowitychOd0DoN(int a, int m)
+        {
+            return a % m;
+        }
+
+        public static int HaszowaniePrzezMnozenie(int a, int m)
+        {
+            return (int)(m * (a * Math.PI) % 1);
+        }
     }
 
-    public class Hasz<T> where T: IConvertible
+    public class Hasz<T> where T : IConvertible
     {
         public delegate int FunkcjaHasz(T el, int m);
 
@@ -27,13 +37,34 @@ namespace HaszNaListach
         public FunkcjaHasz F { get; private set; }
         public List<T>[] Tab { get; private set; }
         public int StrFormat { get; set; }
+        public int N { get; private set; }
 
         public Hasz(int m, FunkcjaHasz f, int strformat = 3)
         {
+            Init(m, f, strformat);
+        }
+
+        public Hasz(IEnumerable<T> dataset, FunkcjaHasz f, int m = -1, int strformat = 3)
+        {
+            if (m == -1)
+            {
+                Init(dataset.Count() * 2, f, strformat);
+            }
+            else
+            {
+                Init(m, f, strformat);
+            }
+
+            Wloz(dataset);
+        }
+
+        private void Init(int m, FunkcjaHasz f, int strformat = 3)
+        {
             M = m;
             F = f;
+            N = 0;
             Tab = new List<T>[M];
-            StrFormat = strformat;             
+            StrFormat = strformat;
         }
 
         public int LiczFunkcje(T el)
@@ -69,9 +100,15 @@ namespace HaszNaListach
                 if (Tab[idx] == null)
                 {
                     Tab[idx] = new List<T>();
-                }
+                }                
 
                 Tab[idx].Add(el);
+                N++;
+
+                if (Tab.Length < N)
+                {
+                    PowiekszTablice();
+                }
 
                 return true;
             }
@@ -100,13 +137,59 @@ namespace HaszNaListach
             int odp = Szukaj(el);
 
             if (odp != -1)
-            {
+            {                
                 Tab[idx].RemoveAt(odp);
+                N--;
+
+                if (M > 2.5 * N)
+                {
+                    PomnieszTablice();
+                }
 
                 return true;
             }
 
             return false;
+        }
+
+        private void PowiekszTablice()
+        {
+            N = 0;
+            M = M * 2;
+
+            List<T>[] oldTab = Tab;
+            Tab = new List<T>[M];
+
+            for (int i = 0; i < M / 2; i++)
+            {
+                if (oldTab[i] != null)
+                {
+                    foreach (T el in oldTab[i])
+                    {
+                        Wloz(el);
+                    }
+                }
+            }
+        }
+
+        private void PomnieszTablice()
+        {
+            N = 0;
+            M = M / 2;
+
+            List<T>[] oldTab = Tab;
+            Tab = new List<T>[M];
+
+            for (int i = 0; i < M * 2; i++)
+            {
+                if (oldTab[i] != null)
+                {
+                    foreach (T el in oldTab[i])
+                    {
+                        Wloz(el);
+                    }
+                }
+            }
         }
 
         public override string ToString()
@@ -130,69 +213,6 @@ namespace HaszNaListach
             }
 
             return ret;
-        }
-
-        public bool ExecuteCMD(string command)
-        {
-            bool ret = false;
-
-            try
-            {
-                List<string> args = command.Split(' ').ToList();
-
-                switch (args[0])
-                {
-                    case "dodaj":
-                        {
-                            args.RemoveAt(0);
-                            ret = true;
-
-                            foreach (string arg in args)
-                            {
-                                Wloz((T)Convert.ChangeType(arg, typeof(T)));
-                            }
-                        }
-
-                        break;
-
-                    case "usun":
-                        {
-                            args.RemoveAt(0);
-                            ret = true;
-
-                            foreach (string arg in args)
-                            {
-                                Usun((T)Convert.ChangeType(arg, typeof(T)));                                
-                            }
-                        }  
-
-                        break;
-
-                    case "szukaj":
-                        {
-                            ret = Szukaj((T)Convert.ChangeType(args[1], typeof(T))) != -1 ? true : false;
-                        }
-
-                        break;
-
-                    case "help":
-                        {
-                            Console.Clear();
-                            Console.WriteLine("dodaj [el1] [el2] ...");
-                            Console.WriteLine("usun [el1] [el2] ...");
-                            Console.WriteLine("szukaj [el]");
-                            Console.WriteLine("help");
-                            Console.WriteLine("quit");
-                            Console.WriteLine("\nNacisnij klawisz...");
-                            Console.ReadKey();
-                        }
-
-                        break;
-                }
-            }
-            catch (Exception) { }
-
-            return ret;
-        }
+        }        
     }
 }

@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{792EDDBD-08BE-4151-A98A-AB1A2893DCA5}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{4C0BF26D-517D-466B-AA5C-395C15636B27}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HaszCLI</RootNamespace>
-    <AssemblyName>HaszCLI</AssemblyName>
+    <RootNamespace>KonsolaDlaHasz</RootNamespace>
+    <AssemblyName>KonsolaDlaHasz</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,20 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="KonsolaHash.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hasz\MechanizmHaszowania.csproj">
       <Project>{e0bf8f7b-b066-4ff8-86da-7c9f172f2f8f}</Project>
       <Name>MechanizmHaszowania</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\KonsolaDlaHasz\KonsolaDlaHasz.csproj">
-      <Project>{4c0bf26d-517d-466b-aa5c-395c15636b27}</Project>
-      <Name>KonsolaDlaHasz</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
