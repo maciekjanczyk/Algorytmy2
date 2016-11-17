@@ -16,7 +16,7 @@ namespace ZbioryCLI
             Console.WriteLine(zb);
             zb.Zlacz(1, 2, 1);
             Console.WriteLine(zb);
-            zb.Zlacz(1, 3, 1);
+            zb.Zlacz(2, 3, 2);
             Console.WriteLine(zb);
 
             Console.ReadKey();

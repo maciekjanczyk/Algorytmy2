@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{95BA7998-7C1C-407F-8727-17592674D56F}</ProjectGuid>
+    <ProjectGuid>{E9E1EE83-8256-413E-949F-6751593497AC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Zbiory</RootNamespace>
-    <AssemblyName>Zbiory</AssemblyName>
+    <RootNamespace>ParserWyrazenLogicznych</RootNamespace>
+    <AssemblyName>ParserWyrazenLogicznych</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Zbior.cs" />
+    <Compile Include="ParserWL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

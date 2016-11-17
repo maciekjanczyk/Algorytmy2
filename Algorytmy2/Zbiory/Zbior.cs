@@ -91,5 +91,15 @@ namespace Zbiory
                 Console.WriteLine("{0,4} {1,4} {2,4} {3,4} {4,4}", Elements[i], name[i], count[i], father[i], root[i]);
             }
         }
+
+        public int[,] Kruskal(int[,] graf, int[] koszty)
+        {
+            int len = graf.GetLength(0);
+            int[,] ret = new int[len, len];
+
+            // tu cos bedzie
+
+            return ret;
+        }
     }
 }
