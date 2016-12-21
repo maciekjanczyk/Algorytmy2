@@ -1,0 +1,123 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MaksymalnyPrzeplyw
+{
+    public class ProblemMaksymalnegoPrzeplywu
+    {
+        public static int[] DFS(int[,] G)
+        {
+            int N = G.GetLength(0);
+            int[] kolor = new int[N];
+            int[] p = new int[N];
+            int[] d = new int[N];
+            int[] f = new int[N];
+            int time = 0;
+
+            for (int u = 0; u < N; u++)
+            {
+                if (kolor[u] == 0)
+                {
+                    time = DFSV(G, u, kolor, p, d, f, time);
+                }
+            }
+
+            return f;
+        }
+
+        private static int DFSV(int[,] G, int u, int[] kolor, int[] p, int[] d, int[] f, int time)
+        {
+            int N = G.GetLength(0);
+            kolor[u] = 1;
+            int new_time = time + 1;
+            d[u] = new_time;
+
+            for (int v = 0; v < N; v++)
+            {
+                if (G[u, v] != 0)
+                {
+                    if (kolor[v] == 0)
+                    {
+                        p[v] = u;
+                        new_time = DFSV(G, v, kolor, p, d, f, new_time);
+                    }
+                }
+            }
+
+            kolor[u] = 2;
+            new_time++;
+            f[u] = new_time;
+
+            return new_time;
+        }
+
+        public static bool CzyIstniejeDroga(int[,] G, List<int> odwiedzone, int s_index, int t_index, List<int> droga, int poprzednik = -1)
+        {
+            if (s_index == t_index)
+            {
+                droga.Add(s_index);
+                return true;
+            }
+            else
+            {
+                odwiedzone.Add(s_index);
+                bool ret = false;
+                int N = G.GetLength(0);
+
+                for (int i = 0; i < N; i++)
+                {
+                    if (odwiedzone.Contains(i))
+                    {
+                        continue;
+                    }
+                    else if (G[s_index, i] != 0)
+                    {
+                        ret = CzyIstniejeDroga(G, odwiedzone, i, t_index, droga, s_index);
+
+                        if (ret)
+                        {
+                            droga.Add(s_index);
+                            return true;
+                        }
+                    }
+                }
+
+                return false;
+            }
+        }
+
+        public static int[,] GrafResidualny(int[,] G)
+        {
+            int N = G.GetLength(0);
+            int[,] ret = new int[N, N];
+            int[] f = DFS(G);
+
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < N; j++)
+                {
+                    //ret[i, j] = 
+                }
+            }
+
+            return ret;
+        }
+
+        public static void FordFulkerson(int[,] G, int s_index, int t_index)
+        {
+            int wymiar = G.GetLength(0);
+            int[,] f = new int[wymiar, wymiar];
+            List<int> p = new List<int>();
+            List<int> tmp = new List<int>();
+
+            while (CzyIstniejeDroga(G, tmp, s_index, t_index, p))
+            {
+
+                break;
+            }
+        }
+    }
+}
