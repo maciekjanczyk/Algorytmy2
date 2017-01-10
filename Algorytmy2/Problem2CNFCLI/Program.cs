@@ -9,11 +9,8 @@ namespace Problem2CNFCLI
 {
     class Program
     {
-        static void Main(string[] args)
+        static void WyswietlGrafImplikacji(Problem2CNF cnf)
         {
-            string expr = "(x0|x2)&(x0|!x3)&(x1|!x3)&(x1|!x4)&(x2|!x4)&(x0|!x5)&(x1|!x5)&(x2|!x5)&(x3|x6)&(x4|x6)&(x5|x6)";
-            Problem2CNF cnf = new Problem2CNF(expr);
-            
             for (int i = 0; i < cnf.GrafImplikacji.Count; i++)
             {
                 Console.Write("{0}: ", i < cnf.Offset ? Convert.ToString(i) : "!" + Convert.ToString(i - cnf.Offset));
@@ -24,6 +21,14 @@ namespace Problem2CNFCLI
                 }
                 Console.WriteLine();
             }
+        }
+
+        static void Main(string[] args)
+        {
+            string expr = "(x0|x2)&(x0|!x3)&(x1|!x3)&(x1|!x4)&(x2|!x4)&(x0|!x5)&(x1|!x5)&(x2|!x5)&(x3|x6)&(x4|x6)&(x5|x6)";
+            Problem2CNF cnf = new Problem2CNF(expr);
+
+            WyswietlGrafImplikacji(cnf);
 
             Console.ReadKey();
         }

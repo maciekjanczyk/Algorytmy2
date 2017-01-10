@@ -12,24 +12,50 @@ namespace MPrzeplywCLI
     {
         static void Main(string[] args)
         {
-            List<int> droga = new List<int>();
-            List<int> tmp = new List<int>();
-            int[,] G =
+            int[,] przeplyw =
+            {
+                { 0, 11, 8, 0, 0, 0 },
+                { 0, 0, 1, 12, 0, 0 },
+                { 0, 1, 0, 0, 11, 0 },
+                { 0, 0, 4, 0, 0, 15 },
+                { 0, 0, 0, 7, 0, 4 },
+                { 0, 0, 0, 0, 0, 0 }
+            };
+
+            int[,] przepustowosc =
             {
                 { 0, 16, 13, 0, 0, 0 },
-                { 0, 0, 10, 12, 0, 0 },
+                { 0, 0, 11, 12, 0, 0 },
                 { 0, 4, 0, 0, 14, 0 },
                 { 0, 0, 9, 0, 0, 20 },
                 { 0, 0, 0, 7, 0, 4 },
                 { 0, 0, 0, 0, 0, 0 }
-            };            
+            };
 
-            ProblemMaksymalnegoPrzeplywu.CzyIstniejeDroga(G, tmp, 0, 5, droga);
-            droga.Reverse();
-            
-            foreach (int d in droga)
+            int[,] GRes = ProblemMaksymalnegoPrzeplywu.GrafResidualny(przeplyw, przepustowosc);
+
+            ProblemMaksymalnegoPrzeplywu.FordFulkerson(przeplyw, przepustowosc, 0, 5);
+
+            for (int i = 0; i < przeplyw.GetLength(0); i++)
             {
-                Console.WriteLine(d);
+                for (int j = 0; j < przeplyw.GetLength(0); j++)
+                {
+                    Console.Write("{0,3} ", GRes[i, j]);
+                }
+
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+
+            for (int i = 0; i < przeplyw.GetLength(0); i++)
+            {
+                for (int j = 0; j < przeplyw.GetLength(0); j++)
+                {
+                    Console.Write("{0,3} ", przeplyw[i, j]);
+                }
+
+                Console.WriteLine();
             }
 
             Console.ReadKey();

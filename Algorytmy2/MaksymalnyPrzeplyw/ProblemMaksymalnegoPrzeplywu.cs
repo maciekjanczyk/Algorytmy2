@@ -89,34 +89,59 @@ namespace MaksymalnyPrzeplyw
             }
         }
 
-        public static int[,] GrafResidualny(int[,] G)
+        public static int[,] GrafResidualny(int[,] przeplyw, int[,] przepustowosc)
         {
-            int N = G.GetLength(0);
+            int N = przeplyw.GetLength(0);
             int[,] ret = new int[N, N];
-            int[] f = DFS(G);
 
             for (int i = 0; i < N; i++)
             {
                 for (int j = 0; j < N; j++)
                 {
-                    //ret[i, j] = 
+                    ret[i, j] = przepustowosc[i, j] - przeplyw[i, j];
+                    ret[j, i] = przeplyw[i, j];
                 }
             }
 
             return ret;
         }
 
-        public static void FordFulkerson(int[,] G, int s_index, int t_index)
+        private static int MinimalnyCf(int[,] Gr, List<int> droga)
         {
-            int wymiar = G.GetLength(0);
-            int[,] f = new int[wymiar, wymiar];
-            List<int> p = new List<int>();
-            List<int> tmp = new List<int>();
+            int N = Gr.GetLength(0);
+            int ret = Int32.MaxValue;
 
-            while (CzyIstniejeDroga(G, tmp, s_index, t_index, p))
+            for (int i = 1; i < droga.Count; i++)
             {
+                if (Gr[droga[i - 1], droga[i]] < ret)
+                {
+                    ret = Gr[droga[i - 1], droga[i]];
+                }
+            }
 
-                break;
+            return ret;
+        }
+
+        public static void FordFulkerson(int[,] przeplyw, int[,] przepustowosc, int s_index, int t_index)
+        {
+            int wymiar = przeplyw.GetLength(0);
+            int[,] f = new int[wymiar, wymiar];
+            int[,] G = GrafResidualny(przeplyw, przepustowosc);
+            List<int> droga = new List<int>();
+            List<int> odwiedzone = new List<int>();
+
+            while (CzyIstniejeDroga(G, odwiedzone, s_index, t_index, droga))
+            {
+                int min_cf = MinimalnyCf(G, droga);
+
+                for (int i = 1; i < droga.Count; i++)
+                {
+                    przeplyw[droga[i - 1], droga[i]] += min_cf;
+                    G[droga[i - 1], droga[i]] -= min_cf;
+                }
+
+                droga = new List<int>();
+                droga = new List<int>();
             }
         }
     }
