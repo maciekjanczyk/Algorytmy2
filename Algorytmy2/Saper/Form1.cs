@@ -13,6 +13,7 @@ namespace Saper
 {
     public partial class Form1 : Form
     {
+        List<Button> wcisniete = new List<Button>();
         Button[,] mata;
         string[,] mataWart;
         int wymiarM;
@@ -92,6 +93,57 @@ namespace Saper
 
             if (btn.Text != "")
             {
+                if (btn.Text != ".")
+                {
+                    int zebrane = 0;
+
+
+                    for (int fi = -1; fi <= 1; fi++)
+                    {
+                        for (int fj = -1; fj <= 1; fj++)
+                        {
+                            if (fi == 0 && fj == 0)
+                            {
+                                continue;
+                            }
+
+                            int I = i + fi;
+                            int J = j + fj;
+
+                            if ((I >= 0 && I < wymiarM) && (J >= 0 && J < wymiarN))
+                            {
+                                if (mata[I, J].Text == "" && mataWart[I, J] != "x")
+                                    odkryjPole(I, J);
+                            }
+                        }
+                    }
+
+                    if (zebrane == Convert.ToInt32(btn.Text))
+                    {
+                        for (int fi = -1; fi <= 1; fi++)
+                        {
+                            for (int fj = -1; fj <= 1; fj++)
+                            {
+                                if (fi == 0 && fj == 0)
+                                {
+                                    continue;
+                                }
+
+                                int I = i + fi;
+                                int J = j + fj;
+
+                                if ((I >= 0 && I < wymiarM) && (J >= 0 && J < wymiarN))
+                                {
+                                    if (mata[I, J].Text == "")
+                                    {
+                                        
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 return;
             }
 
@@ -125,9 +177,58 @@ namespace Saper
             }
         }
 
-        private void prawymNaPole(object sender, EventArgs e)
+        private void prawymNaPole(object sender, MouseEventArgs e)
         {
-            ((Button)sender).Text = "?";
+            Button btn = (Button)sender;
+            int i = tableLayoutPanel1.GetRow(btn);
+            int j = tableLayoutPanel1.GetColumn(btn);
+
+            if (btn.Text == "")
+            {
+                btn.Text = "?";
+            }
+            else if (btn.Text == "?")
+            {
+                btn.Text = "";
+            }
+            else if (btn.Text != ".")
+            {
+                wcisniete = new List<Button>();
+
+                for (int fi = -1; fi <= 1; fi++)
+                {
+                    for (int fj = -1; fj <= 1; fj++)
+                    {
+                        if (fi == 0 && fj == 0)
+                        {
+                            continue;
+                        }
+
+                        int I = i + fi;
+                        int J = j + fj;
+
+                        if ((I >= 0 && I < wymiarM) && (J >= 0 && J < wymiarN))
+                        {
+                            if (mata[I, J].Text == "")
+                            {
+                                mata[I, J].Enabled = false;
+                                wcisniete.Add(mata[I, J]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void podniesPrzyciski(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                foreach (Button btn in wcisniete)
+                {
+                    btn.Enabled = true;
+                }
+            }
         }
 
         private void wczytajToolStripMenuItem_Click(object sender, EventArgs e)
@@ -171,6 +272,7 @@ namespace Saper
                         mata[i, j] = new Button();
                         mata[i, j].Font = new Font(mata[i, j].Font, FontStyle.Bold);
                         mata[i, j].MouseDown += wcisnijPole;
+                        mata[i, j].MouseUp += podniesPrzyciski;
                         mata[i, j].Size = new Size(buttSize, buttSize);
                         mata[i, j].TextAlign = ContentAlignment.MiddleCenter;
                         mata[i, j].BackColor = Color.White;
