@@ -10,7 +10,7 @@ namespace ZbioryCLI
 
     class Program
     {
-        static void Main(string[] args)
+        static void ZbioryOld()
         {
             Zbior zb = new Zbior(new int[] { 1, 3, 5, 7, 9 }.ToList());
             Console.WriteLine(zb);
@@ -18,6 +18,40 @@ namespace ZbioryCLI
             Console.WriteLine(zb);
             zb.Zlacz(2, 3, 2);
             Console.WriteLine(zb);
+        }
+
+        static void WypiszGraf(int[,] G)
+        {
+            int size = G.GetLength(0);
+
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    Console.Write("{0,2} ", G[i, j]);
+                }
+
+                Console.WriteLine();
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            int[,] G =
+            {
+                { 0, 1, 2, 0, 2 },
+                { 1, 0, 1, 2, 0 },
+                { 2, 1, 0, 3, 4 },
+                { 0, 2, 3, 0, 1 },
+                { 2, 0, 4, 1, 0 }
+            };
+
+            Console.WriteLine("Graf wejsciowy: ");
+            WypiszGraf(G);
+
+            int[,] mst = MST.AlgorytmKruskala.Rozwiaz(G);
+            Console.WriteLine("\nMST: ");
+            WypiszGraf(mst);
 
             Console.ReadKey();
         }
