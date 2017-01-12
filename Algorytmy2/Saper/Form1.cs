@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,12 +15,17 @@ namespace Saper
     public partial class Form1 : Form
     {
         List<Button> wcisniete = new List<Button>();
+        List<int[]> ruchy = new List<int[]>(); 
         Button[,] mata;
+        string[,] popRuch;
         string[,] mataWart;
         int wymiarM;
         int wymiarN;
+        bool przegrana = false;
+        bool wygrana = false;
         int buttSize = 25;
         int wymogiPunktowe = 0;
+        int starePkt = 0;
         float TS = 0;
 
         private void DodajPunkt()
@@ -30,6 +36,7 @@ namespace Saper
             {
                 BlokujWszystkie();
                 MessageBox.Show("WYGRANA!", "WYGRANA", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                wygrana = true;
                 return;
             }
         }
@@ -97,7 +104,6 @@ namespace Saper
                 {
                     int zebrane = 0;
 
-
                     for (int fi = -1; fi <= 1; fi++)
                     {
                         for (int fj = -1; fj <= 1; fj++)
@@ -112,14 +118,23 @@ namespace Saper
 
                             if ((I >= 0 && I < wymiarM) && (J >= 0 && J < wymiarN))
                             {
-                                if (mata[I, J].Text == "" && mataWart[I, J] != "x")
-                                    odkryjPole(I, J);
+                                if (mata[I, J].Text == "?")
+                                    zebrane++;
                             }
                         }
                     }
 
                     if (zebrane == Convert.ToInt32(btn.Text))
                     {
+                        for (int ii = 0; ii < wymiarM; ii++)
+                        {
+                            for (int jj = 0; jj < wymiarN; jj++)
+                            {
+                                popRuch[ii, jj] = mata[ii, jj].Text;
+                                starePkt = Convert.ToInt32(zebraneLabel.Text);
+                            }
+                        }
+
                         for (int fi = -1; fi <= 1; fi++)
                         {
                             for (int fj = -1; fj <= 1; fj++)
@@ -134,10 +149,8 @@ namespace Saper
 
                                 if ((I >= 0 && I < wymiarM) && (J >= 0 && J < wymiarN))
                                 {
-                                    if (mata[I, J].Text == "")
-                                    {
-                                        
-                                    }
+                                    if (mata[I, J].Text == "" && mataWart[I, J] != "x")
+                                        odkryjPole(I, J);
                                 }
                             }
                         }
@@ -147,12 +160,22 @@ namespace Saper
                 return;
             }
 
+            for (int ii = 0; ii < wymiarM; ii++)
+            {
+                for (int jj = 0; jj < wymiarN; jj++)
+                {
+                    popRuch[ii, jj] = mata[ii, jj].Text;
+                    starePkt = Convert.ToInt32(zebraneLabel.Text);
+                }
+            }
+
             btn.Text = mataWart[i, j] != "-" ? mataWart[i, j] : ".";
 
             if (btn.Text == "x")
             {
                 BlokujWszystkie();
-                MessageBox.Show("PRZEGRALES!", "PRZEGRANA", MessageBoxButtons.OK, MessageBoxIcon.Stop);                
+                MessageBox.Show("PRZEGRALES!", "PRZEGRANA", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                przegrana = true;
                 return;
             }
 
@@ -233,6 +256,9 @@ namespace Saper
 
         private void wczytajToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            wygrana = false;
+            przegrana = false;
+
             zebraneLabel.Text = "0";
 
             OpenFileDialog ofd = new OpenFileDialog();
@@ -258,6 +284,7 @@ namespace Saper
 
                 mata = new Button[wymiarM, wymiarN];
                 mataWart = new string[wymiarM, wymiarN];
+                popRuch = new string[wymiarM, wymiarN];                
 
                 tableLayoutPanel1.RowCount = wymiarM;
                 tableLayoutPanel1.ColumnCount = wymiarN;
@@ -268,6 +295,7 @@ namespace Saper
 
                     for (int j = 0; j < line.Length; j++)
                     {
+                        popRuch[i, j] = "";
                         mataWart[i, j] = line[j].ToString();
                         mata[i, j] = new Button();
                         mata[i, j].Font = new Font(mata[i, j].Font, FontStyle.Bold);
@@ -331,6 +359,166 @@ namespace Saper
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void startToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (wymiarM == 0)
+            {
+                MessageBox.Show("Najpierw wczytaj mape do gry", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                int i = wymiarN % 2 == 1 ? wymiarN / 2 + 1 : wymiarN / 2;
+                int j = wymiarM % 2 == 1 ? wymiarM / 2 + 1 : wymiarM / 2;
+
+                wcisnijPole(mata[i - 1, j - 1], new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                ZapoczatkujWybieranieRuchow();
+                bool q;
+                ProbujNastepnyRuch(out q, 0);
+            }
+        }
+
+        private void cofnijRuchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int ii = 0; ii < wymiarM; ii++)
+            {
+                for (int jj = 0; jj < wymiarN; jj++)
+                {
+                    mata[ii, jj].Text = popRuch[ii, jj];
+                }
+            }
+
+            zebraneLabel.Text = starePkt.ToString();
+        }                
+
+        private void ZapoczatkujWybieranieRuchow()
+        {
+            for (int i = 0; i < wymiarM; i++)
+            {
+                for (int j = 0; j < wymiarN; j++)
+                {
+                    if (mata[i, j].Text == "")
+                    {
+                        ruchy.Add(new int[] { i, j });
+                    }
+                    else if (char.IsDigit(mata[i, j].Text[0]))
+                    {
+                        ruchy.Add(new int[] { i, j });
+                    }
+                }
+            }
+        }
+
+        private bool CzyMaSpelnionaCyfre(int[] pole)
+        {
+            int i = pole[0], j = pole[1];
+            int naliczoneSpacje = 0, naliczoneWykrycia = 0;
+
+            for (int fi = -1; fi <= 1; fi++)
+            {
+                for (int fj = -1; fj <= 1; fj++)
+                {
+                    if (fi == 0 && fj == 0)
+                    {
+                        continue;
+                    }
+
+                    int I = i + fi;
+                    int J = j + fj;
+
+                    if ((I >= 0 && I < wymiarM) && (J >= 0 && J < wymiarN))
+                    {
+                        if (mata[I, J].Text == "")
+                        {
+                            naliczoneSpacje++;
+                        }
+                        else if (mata[I, J].Text == "?")
+                        {
+                            naliczoneWykrycia++;
+                        }
+                    }
+                }
+            }
+
+            int liczbaNaPolu = Convert.ToInt32(mata[i, j].Text);
+
+            if (liczbaNaPolu == naliczoneWykrycia)
+            {
+                return true;
+            }
+
+            return (naliczoneSpacje + naliczoneWykrycia) == liczbaNaPolu;
+        }
+
+        private int IleOdkryje(int[] ruch)
+        {
+            int i = ruch[0], j = ruch[1];
+
+            if (mata[i, j].Text.Length > 0 && char.IsDigit(mata[i, j].Text[0]) && CzyMaSpelnionaCyfre(ruch))
+            {
+                return Convert.ToInt32(mata[i, j].Text);
+            }
+
+            for (int fi = -1; fi <= 1; fi++)
+            {
+                for (int fj = -1; fj <= 1; fj++)
+                {
+                    if (fi == 0 && fj == 0)
+                    {
+                        continue;
+                    }
+
+                    int I = i + fi;
+                    int J = j + fj;
+
+                    if ((I >= 0 && I < wymiarM) && (J >= 0 && J < wymiarN))
+                    {
+                        if (mata[I, J].Text.Length > 0 && char.IsDigit(mata[I, J].Text[0]) && CzyMaSpelnionaCyfre(new int[] { I, J }))
+                        {
+                            return 1;
+                        }
+                    }
+                }
+            }
+
+            return 0;
+        }
+
+        private void ProbujNastepnyRuch(out bool q, int numerRuchu)
+        {
+            // ruch, to takie pole na macie które ma pusty znak (czyli nie zostało kliknięte)
+            //Thread.Sleep(1000);
+
+            do
+            {
+                int[] ruch = ruchy[numerRuchu];
+                int i = ruch[0], j = ruch[1];
+
+                if (IleOdkryje(ruch) > 0)
+                {
+                    wcisnijPole(mata[i, j], new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+
+                    if (Convert.ToInt32(zebraneLabel.Text) != wymogiPunktowe && numerRuchu < ruchy.Count && !przegrana && !wygrana)
+                    {
+                        ProbujNastepnyRuch(out q, numerRuchu + 1);
+
+                        if (!q)
+                        {
+                            cofnijRuchToolStripMenuItem_Click(null, null);
+                        }
+                    }
+                    else
+                    {
+                        q = true;
+                    }
+                }
+
+                numerRuchu++;
+            }
+            while (Convert.ToInt32(zebraneLabel.Text) != wymogiPunktowe && numerRuchu < ruchy.Count && !przegrana && !wygrana);
+
+            q = false;
         }
     }
 }

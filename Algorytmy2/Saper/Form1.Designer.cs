@@ -32,13 +32,18 @@
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wczytajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wyjdźToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aBobcięcieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oProgramieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.zebraneLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.potrzebneLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.cofnijRuchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -47,10 +52,13 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.plikToolStripMenuItem,
-            this.oProgramieToolStripMenuItem});
+            this.aBobcięcieToolStripMenuItem,
+            this.oProgramieToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(227, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(306, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -77,12 +85,38 @@
             this.wyjdźToolStripMenuItem.Text = "Wyjdź";
             this.wyjdźToolStripMenuItem.Click += new System.EventHandler(this.wyjdźToolStripMenuItem_Click);
             // 
+            // aBobcięcieToolStripMenuItem
+            // 
+            this.aBobcięcieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startToolStripMenuItem,
+            this.cofnijRuchToolStripMenuItem});
+            this.aBobcięcieToolStripMenuItem.Name = "aBobcięcieToolStripMenuItem";
+            this.aBobcięcieToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.aBobcięcieToolStripMenuItem.Text = "AB-obcięcie";
+            // 
+            // startToolStripMenuItem
+            // 
+            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.startToolStripMenuItem.Text = "Start";
+            this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
+            // 
             // oProgramieToolStripMenuItem
             // 
             this.oProgramieToolStripMenuItem.Name = "oProgramieToolStripMenuItem";
             this.oProgramieToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.oProgramieToolStripMenuItem.Text = "O programie";
             this.oProgramieToolStripMenuItem.Click += new System.EventHandler(this.oProgramieToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(12, 20);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(12, 20);
             // 
             // tableLayoutPanel1
             // 
@@ -96,7 +130,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(227, 205);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(306, 36);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // statusStrip1
@@ -106,9 +140,9 @@
             this.zebraneLabel,
             this.toolStripStatusLabel3,
             this.potrzebneLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 207);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 38);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(227, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(306, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -136,11 +170,18 @@
             this.potrzebneLabel.Size = new System.Drawing.Size(13, 17);
             this.potrzebneLabel.Text = "0";
             // 
+            // cofnijRuchToolStripMenuItem
+            // 
+            this.cofnijRuchToolStripMenuItem.Name = "cofnijRuchToolStripMenuItem";
+            this.cofnijRuchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cofnijRuchToolStripMenuItem.Text = "Cofnij ruch";
+            this.cofnijRuchToolStripMenuItem.Click += new System.EventHandler(this.cofnijRuchToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(227, 229);
+            this.ClientSize = new System.Drawing.Size(306, 60);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
@@ -170,6 +211,11 @@
         private System.Windows.Forms.ToolStripStatusLabel zebraneLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel potrzebneLabel;
+        private System.Windows.Forms.ToolStripMenuItem aBobcięcieToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem cofnijRuchToolStripMenuItem;
     }
 }
 

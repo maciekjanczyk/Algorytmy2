@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RegulyLogiczne;
+using SilnieSpojneSkladowe;
 
 namespace Problem2CNFCLI
 {
@@ -23,12 +24,40 @@ namespace Problem2CNFCLI
             }
         }
 
+        static void TestujSSS()
+        {
+            int[,] G = new int[,]
+            {
+                { -1, 1, -1, -1, -1, -1, -1, -1 },
+                { -1, -1, 1, -1, 1, 1, -1, -1 },
+                { -1, -1, -1, 1, -1, -1, 1, -1 },
+                { -1, -1, 1, -1, -1, -1, -1, 1 },
+                { 1, -1, -1, -1, -1, 1, -1, -1 },
+                { -1, -1, -1, -1, -1 , -1, 1, -1 },
+                { -1, -1, -1, -1, -1, 1, -1, 1 },
+                { -1, -1, -1, -1, -1, -1, -1, 1 }
+            };
+
+            SSS sss = new SSS(G);
+            int size = sss.Rozwiazanie.GetLength(1);
+
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    Console.Write("{0,2} ", sss.Rozwiazanie[i, j]);
+                }
+
+                Console.WriteLine();
+            }
+        }
+
         static void Main(string[] args)
         {
             string expr = "(x0|x2)&(x0|!x3)&(x1|!x3)&(x1|!x4)&(x2|!x4)&(x0|!x5)&(x1|!x5)&(x2|!x5)&(x3|x6)&(x4|x6)&(x5|x6)";
             Problem2CNF cnf = new Problem2CNF(expr);
 
-            WyswietlGrafImplikacji(cnf);
+            Console.WriteLine("Czy regula jest spelnialna: {0}", cnf.Wynik);            
 
             Console.ReadKey();
         }

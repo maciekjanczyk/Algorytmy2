@@ -48,6 +48,10 @@
       <Project>{e9e1ee83-8256-413e-949f-6751593497ac}</Project>
       <Name>ParserWyrazenLogicznych</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SilnieSpojneSkladowe\SilnieSpojneSkladowe.csproj">
+      <Project>{11ad18c3-e720-457f-bb5b-d1b942825f58}</Project>
+      <Name>SilnieSpojneSkladowe</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

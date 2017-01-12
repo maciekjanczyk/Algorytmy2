@@ -54,6 +54,10 @@
       <Project>{ab098a62-3f83-40ff-9ec3-f1c22639c479}</Project>
       <Name>RegulyLogiczne</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SilnieSpojneSkladowe\SilnieSpojneSkladowe.csproj">
+      <Project>{11ad18c3-e720-457f-bb5b-d1b942825f58}</Project>
+      <Name>SilnieSpojneSkladowe</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
