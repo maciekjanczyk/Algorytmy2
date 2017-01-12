@@ -55,6 +55,7 @@ namespace Problem2CNFCLI
         static void Main(string[] args)
         {
             string expr = "(x0|x2)&(x0|!x3)&(x1|!x3)&(x1|!x4)&(x2|!x4)&(x0|!x5)&(x1|!x5)&(x2|!x5)&(x3|x6)&(x4|x6)&(x5|x6)";
+            //string expr = "(x0|!x1)&(!x0|x1)";
             Problem2CNF cnf = new Problem2CNF(expr);
 
             Console.WriteLine("Czy regula jest spelnialna: {0}", cnf.Wynik);            

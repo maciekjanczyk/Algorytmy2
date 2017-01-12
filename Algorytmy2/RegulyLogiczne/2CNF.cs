@@ -111,7 +111,7 @@ namespace RegulyLogiczne
             int offset = SSS.Size / 2;
             for (int i = 0; i < SSS.Size; i++)
             {
-                for (int j = 0; j < SSSDrogi[i].Count; i++)
+                for (int j = 0; j < SSSDrogi[i].Count; j++)
                 {
                     if (SSSDrogi[i][j] >= offset) // przez to ze !2 to = 2 + offset
                     {
