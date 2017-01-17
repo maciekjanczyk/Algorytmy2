@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skoczek", "Skoczek\Skoczek.csproj", "{8FFEE913-D149-48B3-AFE0-DCB5A27EE1E2}"
 EndProject
@@ -52,6 +52,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saper", "Saper\Saper.csproj", "{076F0A3B-C651-4E03-AF14-2BE4D146420B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MST", "MST\MST.csproj", "{9D290863-AAC7-470E-A4C2-D596431A9FF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranzytywneDomkniecie", "TranzytywneDomkniecie\TranzytywneDomkniecie.csproj", "{E201E5E0-1B70-47C7-8DE4-94BFD512EE3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranDomGrafCLI", "TranDomGrafCLI\TranDomGrafCLI.csproj", "{D2047380-0639-4237-B881-72C60FF2EEE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -143,6 +147,14 @@ Global
 		{9D290863-AAC7-470E-A4C2-D596431A9FF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D290863-AAC7-470E-A4C2-D596431A9FF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D290863-AAC7-470E-A4C2-D596431A9FF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E201E5E0-1B70-47C7-8DE4-94BFD512EE3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E201E5E0-1B70-47C7-8DE4-94BFD512EE3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E201E5E0-1B70-47C7-8DE4-94BFD512EE3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E201E5E0-1B70-47C7-8DE4-94BFD512EE3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2047380-0639-4237-B881-72C60FF2EEE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2047380-0639-4237-B881-72C60FF2EEE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2047380-0639-4237-B881-72C60FF2EEE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2047380-0639-4237-B881-72C60FF2EEE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -169,5 +181,7 @@ Global
 		{11AD18C3-E720-457F-BB5B-D1B942825F58} = {9215F404-9723-4269-A532-EBF11A99C32C}
 		{076F0A3B-C651-4E03-AF14-2BE4D146420B} = {6A045A69-81E4-4D64-81F5-399115E08969}
 		{9D290863-AAC7-470E-A4C2-D596431A9FF1} = {57104157-38B5-4EE5-9D55-B3E342071996}
+		{E201E5E0-1B70-47C7-8DE4-94BFD512EE3B} = {57104157-38B5-4EE5-9D55-B3E342071996}
+		{D2047380-0639-4237-B881-72C60FF2EEE6} = {6A045A69-81E4-4D64-81F5-399115E08969}
 	EndGlobalSection
 EndGlobal
