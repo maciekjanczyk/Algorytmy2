@@ -52,6 +52,7 @@ namespace _8HetmanowCLI
                 foreach (int[] rozw in rozwiazania)
                 {
                     WypiszSzachownice(rozw);
+                    Console.WriteLine();
                 }
             }        
 

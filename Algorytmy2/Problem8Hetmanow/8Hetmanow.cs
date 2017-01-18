@@ -76,14 +76,7 @@ namespace Problem8Hetmanow
 
                     if (i < n - 1)
                     {
-                        ProbujN(i + 1, n_max, multiret, ref q);
-
-                        if (!q)
-                        {
-                            brakWWierszu[j] = true;
-                            brakNaPrzekatnej1[idx1] = true;
-                            brakNaPrzekatnej2[idx2] = true;
-                        }
+                        ProbujN(i + 1, n_max, multiret, ref q);                                                
                     }
                     else
                     {
@@ -95,6 +88,10 @@ namespace Problem8Hetmanow
                             return q;
                         }
                     }
+
+                    brakWWierszu[j] = true;
+                    brakNaPrzekatnej1[idx1] = true;
+                    brakNaPrzekatnej2[idx2] = true;
                 }
             }
 
