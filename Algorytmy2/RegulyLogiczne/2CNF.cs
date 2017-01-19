@@ -15,25 +15,81 @@ namespace RegulyLogiczne
         public int Offset { get; private set; }
         public SSS SSS { get; private set; }
         public bool Wynik { get; private set; }
-        public List<int>[] SSSDrogi { get; private set; }
+        public int[] Wartosci { get; private set; }
 
         public Problem2CNF(string expr, string zmienna = "x")
         {
             GrafImplikacji = StworzGrafImplikacji(expr, zmienna);
-            SSS = new SSS(ListaListDoMacierzy(GrafImplikacji));
-            int offset = GrafImplikacji.Count / 2; // bo !2 = 2 + offset
-            TworzDrogiSSS();
+            var gimp = ListaListDoMacierzy(GrafImplikacji);
+            SSS = new SSS(gimp);
+            int offset = GrafImplikacji.Count / 2;
 
-            for (int u = 0; u < SSS.Size; u++)
+            for (int u = 0; u < SSS.Size / 2; u++)
             {
-                if (SSSDrogi[u].Count != SSSDrogi[u].Distinct().Count())
+                foreach (var rozw in SSS.Rozwiazanie)
                 {
-                    Wynik = false;
-                    return;
+                    if (rozw.Contains(u) && rozw.Contains(u + offset))
+                    {
+                        Wynik = false;
+                        return;
+                    }
                 }
             }
 
             Wynik = true;
+
+            Wartosci = new int[SSS.Size];
+
+            for (int i = 0; i < SSS.Size; i++)
+            {
+                Wartosci[i] = -1;
+            }
+
+            foreach (var c in SSS.Rozwiazanie)
+            {
+                int len2 = 0;
+
+                foreach (int v in c)
+                {
+                    if (Wartosci[v] == -1)
+                    {
+                        len2++;
+                    }
+                }
+
+                if (c.Count == len2)
+                {
+                    foreach (int v in c)
+                    {
+                        int factor = v >= SSS.Size / 2 ? -1 : 1;
+                        Wartosci[v] = 0;
+                        Wartosci[v + offset * factor] = 1;
+                    }
+                }
+                else
+                {
+                    int ustalona = -1;
+
+                    for (int v = 0; v < c.Count; v++)
+                    {
+                        if (Wartosci[v] != -1)
+                        {
+                            ustalona = v;
+                            break;
+                        }
+                    }
+
+                    for (int v = 0; v < c.Count; v++)
+                    {
+                        if (Wartosci[v] == -1)
+                        {
+                            int factor = v >= SSS.Size / 2 ? -1 : 1;
+                            Wartosci[v] = Wartosci[ustalona];
+                            Wartosci[v + offset * factor] = Wartosci[v] > 0 ? 0 : 1;
+                        }
+                    }
+                }
+            }
         }
 
         public static int[,] ListaListDoMacierzy(List<List<int>> gi)
@@ -50,7 +106,7 @@ namespace RegulyLogiczne
                     }
                     else
                     {
-                        ret[i, j] = -1;
+                        ret[i, j] = 0;
                     }
                 }
             }
@@ -83,42 +139,6 @@ namespace RegulyLogiczne
             }
 
             return ret;
-        }
-
-        private void TworzDrogiSSS()
-        {
-            SSSDrogi = new List<int>[SSS.Size];
-
-            for (int i = 0; i < SSS.Size; i++)
-            {
-                SSSDrogi[i] = new List<int>();
-            }
-
-            for (int i = 0; i < SSS.Size; i++)
-            {
-                for (int j = 0; j < SSS.Size; j++)
-                {
-                    if (SSS.Rozwiazanie[i, j] != -1)
-                    {
-                        SSSDrogi[i].Add(j);
-                    }
-                }
-            }
-
-            // tworzymy drogi bez negacji - dzieki temu zamiast sprawdzac czy 2 i !2 sa na tej samej SSS to zobaczymy
-            // czy na ktorejs SSS wystepuje 2 razy ta sama liczba
-
-            int offset = SSS.Size / 2;
-            for (int i = 0; i < SSS.Size; i++)
-            {
-                for (int j = 0; j < SSSDrogi[i].Count; j++)
-                {
-                    if (SSSDrogi[i][j] >= offset) // przez to ze !2 to = 2 + offset
-                    {
-                        SSSDrogi[i][j] -= offset;
-                    }
-                }
-            }
         }
     }
 }
