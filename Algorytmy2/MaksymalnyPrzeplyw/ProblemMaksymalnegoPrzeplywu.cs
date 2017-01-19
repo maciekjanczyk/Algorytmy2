@@ -99,7 +99,7 @@ namespace MaksymalnyPrzeplyw
                 for (int j = 0; j < N; j++)
                 {
                     ret[i, j] = przepustowosc[i, j] - przeplyw[i, j];
-                    ret[j, i] = przeplyw[i, j];
+                    //ret[j, i] = przeplyw[i, j];
                 }
             }
 
@@ -108,18 +108,14 @@ namespace MaksymalnyPrzeplyw
 
         private static int MinimalnyCf(int[,] Gr, List<int> droga)
         {
-            int N = Gr.GetLength(0);
-            int ret = Int32.MaxValue;
+            List<int> wartosciCf = new List<int>();
 
             for (int i = 1; i < droga.Count; i++)
             {
-                if (Gr[droga[i - 1], droga[i]] < ret)
-                {
-                    ret = Gr[droga[i - 1], droga[i]];
-                }
+                wartosciCf.Add(Gr[droga[i - 1], droga[i]]);
             }
 
-            return ret;
+            return wartosciCf.Min();
         }
 
         public static void FordFulkerson(int[,] przeplyw, int[,] przepustowosc, int s_index, int t_index)
@@ -132,6 +128,7 @@ namespace MaksymalnyPrzeplyw
 
             while (CzyIstniejeDroga(G, odwiedzone, s_index, t_index, droga))
             {
+                droga.Reverse();
                 int min_cf = MinimalnyCf(G, droga);
 
                 for (int i = 1; i < droga.Count; i++)
@@ -141,7 +138,7 @@ namespace MaksymalnyPrzeplyw
                 }
 
                 droga = new List<int>();
-                droga = new List<int>();
+                odwiedzone = new List<int>();
             }
         }
     }

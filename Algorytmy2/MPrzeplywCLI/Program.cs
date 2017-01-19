@@ -32,9 +32,22 @@ namespace MPrzeplywCLI
                 { 0, 0, 0, 0, 0, 0 }
             };
 
+            /*int[,] przeplyw = new int[7, 7];
+
+            int[,] przepustowosc =
+            {
+                {0, 9, 0, 0, 9, 0, 0},
+                {0, 0, 7, 3, 0, 0, 0},
+                {0, 0, 0, 4, 0, 0, 6},
+                {0, 0, 0, 0, 0, 2, 9},
+                {0, 0, 0, 3, 0, 6, 0},
+                {0, 0, 0, 0, 0, 0, 8},
+                {0, 0, 0, 0, 0, 0, 0}
+            };*/
+
             int[,] GRes = ProblemMaksymalnegoPrzeplywu.GrafResidualny(przeplyw, przepustowosc);
 
-            ProblemMaksymalnegoPrzeplywu.FordFulkerson(przeplyw, przepustowosc, 0, 5);
+            ProblemMaksymalnegoPrzeplywu.FordFulkerson(przeplyw, przepustowosc, 0, 6);
 
             for (int i = 0; i < przeplyw.GetLength(0); i++)
             {
