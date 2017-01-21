@@ -375,7 +375,7 @@ namespace Saper
                 wcisnijPole(mata[i - 1, j - 1], new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
                 ZapoczatkujWybieranieRuchow();
                 bool q;
-                ProbujNastepnyRuch(out q, 0);
+                //ProbujNastepnyRuch(out q, 0);
             }
         }
 
@@ -410,7 +410,7 @@ namespace Saper
             }
         }
 
-        private bool CzyMaSpelnionaCyfre(int[] pole)
+        /*private bool CzyMaSpelnionaCyfre(int[] pole)
         {
             int i = pole[0], j = pole[1];
             int naliczoneSpacje = 0, naliczoneWykrycia = 0;
@@ -476,7 +476,8 @@ namespace Saper
                     {
                         if (mata[I, J].Text.Length > 0 && char.IsDigit(mata[I, J].Text[0]) && CzyMaSpelnionaCyfre(new int[] { I, J }))
                         {
-                            return 1;
+                            //return 1;
+                            prawymNaPole(mata[I, J], null);
                         }
                     }
                 }
@@ -519,6 +520,6 @@ namespace Saper
             while (Convert.ToInt32(zebraneLabel.Text) != wymogiPunktowe && numerRuchu < ruchy.Count && !przegrana && !wygrana);
 
             q = false;
-        }
+        }*/
     }
 }
