@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
@@ -72,6 +71,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtoczkaWypukla", "OtoczkaWypukla\OtoczkaWypukla.csproj", "{4E848C6A-D3D0-4748-A773-831B95651A7C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtoczkaWypuklaCLI", "OtoczkaWypuklaCLI\OtoczkaWypuklaCLI.csproj", "{BF598945-C6E3-4264-B67C-3CB0083D082B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtoczkaWypuklaForms", "OtoczkaWypuklaForms\OtoczkaWypuklaForms.csproj", "{07F06913-F9C8-454F-AB9C-D4B529246AAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -203,6 +204,10 @@ Global
 		{BF598945-C6E3-4264-B67C-3CB0083D082B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF598945-C6E3-4264-B67C-3CB0083D082B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF598945-C6E3-4264-B67C-3CB0083D082B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07F06913-F9C8-454F-AB9C-D4B529246AAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07F06913-F9C8-454F-AB9C-D4B529246AAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07F06913-F9C8-454F-AB9C-D4B529246AAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07F06913-F9C8-454F-AB9C-D4B529246AAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -239,5 +244,6 @@ Global
 		{6B22A1D5-A275-4BB3-8BB7-F4B0A81F9809} = {9215F404-9723-4269-A532-EBF11A99C32C}
 		{4E848C6A-D3D0-4748-A773-831B95651A7C} = {57104157-38B5-4EE5-9D55-B3E342071996}
 		{BF598945-C6E3-4264-B67C-3CB0083D082B} = {6A045A69-81E4-4D64-81F5-399115E08969}
+		{07F06913-F9C8-454F-AB9C-D4B529246AAA} = {6A045A69-81E4-4D64-81F5-399115E08969}
 	EndGlobalSection
 EndGlobal
