@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GeometriaObliczeniowa;
+using ListResize;
 
 namespace OtoczkaWypukla
 {
@@ -20,7 +21,7 @@ namespace OtoczkaWypukla
             int n = P.Count, k = 0;
             List<Punkt> H = (new Punkt[2 * n]).ToList();
 
-            var newP = P.OrderByDescending(p => p.X).ThenBy(p => p.Y).ToList();
+            P = P.OrderBy(p => p.X).ThenBy(p => p.Y).ToList();
 
             for (int i = 0; i < n; i++)
             {
@@ -42,7 +43,8 @@ namespace OtoczkaWypukla
                 H[k++] = P[i];
             }
 
-            H.RemoveAll(x => ReferenceEquals(x, null));
+            //H.RemoveAll(x => ReferenceEquals(x, null));
+            H.Resize(k);
 
             return H;
         }

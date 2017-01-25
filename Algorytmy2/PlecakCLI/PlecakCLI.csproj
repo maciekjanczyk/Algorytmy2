@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4E848C6A-D3D0-4748-A773-831B95651A7C}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{23AF132D-7175-4D88-966F-E966D71B20B9}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OtoczkaWypukla</RootNamespace>
-    <AssemblyName>OtoczkaWypukla</AssemblyName>
+    <RootNamespace>PlecakCLI</RootNamespace>
+    <AssemblyName>PlecakCLI</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,17 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OtoczkaWypukla.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GeometriaObliczeniowa\GeometriaObliczeniowa.csproj">
-      <Project>{6b22a1d5-a275-4bb3-8bb7-f4b0a81f9809}</Project>
-      <Name>GeometriaObliczeniowa</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ListResize\ListResize.csproj">
-      <Project>{68507773-75fc-49d9-90b0-997a48e5f058}</Project>
-      <Name>ListResize</Name>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProblemPlecakowy\ProblemPlecakowy.csproj">
+      <Project>{6344bccc-7b88-4c15-aee8-2e31ecc788cb}</Project>
+      <Name>ProblemPlecakowy</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

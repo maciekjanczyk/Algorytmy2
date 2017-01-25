@@ -21,6 +21,16 @@ namespace GeometriaObliczeniowa
             Paral = false;
         }
 
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         public static bool operator ==(Punkt a, Punkt b)
         {
             if (Funkcje.CzyJestZerem(a.X - b.X) && Funkcje.CzyJestZerem(a.Y - b.Y))

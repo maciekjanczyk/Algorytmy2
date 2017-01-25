@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4E848C6A-D3D0-4748-A773-831B95651A7C}</ProjectGuid>
+    <ProjectGuid>{6344BCCC-7B88-4C15-AEE8-2E31ECC788CB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OtoczkaWypukla</RootNamespace>
-    <AssemblyName>OtoczkaWypukla</AssemblyName>
+    <RootNamespace>ProblemPlecakowy</RootNamespace>
+    <AssemblyName>ProblemPlecakowy</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,18 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OtoczkaWypukla.cs" />
+    <Compile Include="Plecak.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GeometriaObliczeniowa\GeometriaObliczeniowa.csproj">
-      <Project>{6b22a1d5-a275-4bb3-8bb7-f4b0a81f9809}</Project>
-      <Name>GeometriaObliczeniowa</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ListResize\ListResize.csproj">
-      <Project>{68507773-75fc-49d9-90b0-997a48e5f058}</Project>
-      <Name>ListResize</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
