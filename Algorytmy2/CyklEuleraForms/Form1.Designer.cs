@@ -1,4 +1,4 @@
-﻿namespace MPrzeplywForms
+﻿namespace CyklEuleraForms
 {
     partial class Form1
     {
@@ -81,7 +81,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(94, 23);
             this.button3.TabIndex = 5;
-            this.button3.Text = "Ford Fulkerson";
+            this.button3.Text = "Cykl Eulera";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -96,7 +96,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.Text = "Maksymalny Przepływ";
+            this.Text = "Cykl Eulera";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Click += new System.EventHandler(this.Form1_Click);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
